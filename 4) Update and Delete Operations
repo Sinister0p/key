@@ -1,0 +1,11 @@
+db.Students.updateOne(
+ {name:"Rahul"},
+ {$set:{marks:90}}
+)
+db.Students.updateMany(
+ {course:"BSc IT"},
+ {$inc:{marks:5}}
+)
+db.Students.deleteOne({rollNo:7})
+db.Students.deleteMany({marks:{$lt:40}})
+db.Students.find()
