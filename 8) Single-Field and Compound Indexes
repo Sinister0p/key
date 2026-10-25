@@ -1,0 +1,6 @@
+db.Students.createIndex({rollNo:1})
+db.Students.getIndexes()
+db.Students.createIndex({name:1})
+db.Students.createIndex({course:1, marks:-1})
+db.Students.getIndexes()
+db.Students.find({rollNo:3}).explain("executionStats")
