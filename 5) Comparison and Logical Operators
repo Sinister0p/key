@@ -1,0 +1,15 @@
+db.Students.find({marks:{$gt:80}})
+db.Students.find({age:{$lt:21}})
+db.Students.find({marks:{$eq:90}})
+db.Students.find({
+ $and:[
+ {age:{$gt:20}},
+ {marks:{$gt:80}}
+ ]
+})
+db.Students.find({
+ $or:[
+ {course:"BSc IT"},
+ {course:"BCA"}
+ ]
+})
