@@ -1,0 +1,19 @@
+db.Students.insertMany([
+ {rollNo:1, name:"Rahul", age:20, course:"BSc IT", marks:85},
+ {rollNo:2, name:"Priya", age:21, course:"BSc IT", marks:78},
+ {rollNo:3, name:"Amit", age:20, course:"BCA", marks:92},
+ {rollNo:4, name:"Sneha", age:22, course:"BCA", marks:75}
+])
+db.Faculty.insertMany([
+ {facultyId:101, name:"Dr. Sharma", subject:"MongoDB"},
+ {facultyId:102, name:"Prof. Patil", subject:"Java"},
+ {facultyId:103, name:"Dr. Khan", subject:"Big Data"}
+])
+db.Courses.insertMany([
+ {courseId:1, courseName:"BSc IT", duration:3},
+ {courseId:2, courseName:"BCA", duration:3},
+ {courseId:3, courseName:"MSc IT", duration:2}
+])
+db.Students.find()
+db.Faculty.find()
+db.Courses.find()
