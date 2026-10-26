@@ -1,0 +1,29 @@
+using System;
+namespace TemperatureConversion
+{
+class Program
+{
+static void Main(string[] args)
+{
+Console.WriteLine("Enter the Temperature in Celsius (°C):");
+// Input validation
+if (int.TryParse(Console.ReadLine(), out int celsius))
+{
+ 
+
+
+
+else
+{
+ 
+int fahrenheit = (celsius * 9) / 5 + 32; Console.WriteLine("Temperature in Fahrenheit (°F): " + fahrenheit);
+}
+
+
+Console.WriteLine("Invalid input! Please enter a valid integer temperature.");
+}
+ 
+Console.ReadLine();
+}
+}
+}
