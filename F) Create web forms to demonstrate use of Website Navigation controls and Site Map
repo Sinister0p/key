@@ -1,0 +1,62 @@
+Step 1: Create a Web Forms Project Open Visual Studio 2019.
+Create ASP.NET Web Application (.NET Framework). Select Web Forms.
+Add the following files:
+Web.sitemap Default.aspx Page2.aspx Page3.aspx Page4.aspx
+Step 1
+Add Site Map file
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+<siteMapNode url="pract5a.aspx" title="Home"
+description="Home page of our website">
+<siteMapNode url="clsProp.aspx" title="Page2" description="Page2" />
+<siteMapNode url="Default3.aspx" title="Page3" description="Page3" />
+<siteMapNode url="Default2.aspx" title="Page4" description="Page4" />
+</siteMapNode>
+</siteMap> Step2:
+Add SiteMapDataSource control and Menu control from toolbox to the page
+Step3:
+Pract5a.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pract5a.aspx.cs" Inherits="practical5a.WebForm1" %>
+<!DOCTYPE html>
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>Home</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<div>
+<asp:Label ID="Label1" runat="server" Text="Home"></asp:Label>
+<br /><br />
+<asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1">
+</asp:Menu>
+<br />
+<asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server">
+</asp:SiteMapDataSource>
+</div>
+</form>
+</body>
+</html>
+Step 4:
+Default3.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default3.aspx.cs" Inherits="practical5a.default3" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>Page3</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<div>
+<asp:Label ID="Label1" runat="server" Text="Home > Page3"></asp:Label>
+<br /><br />
+<asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1">
+</asp:Menu>
+ 
+<br /><br />
+<asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server">
+</asp:SiteMapDataSource>
+</div>
+</form>
+</body>
+</html>
