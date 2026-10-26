@@ -1,6 +1,0 @@
-mongosh
-show dbs
-use CollegeDB
-db
-db.createCollection("Students")
-show collections
