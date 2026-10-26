@@ -1,0 +1,89 @@
+Login.aspx
+<%@ Page Language="C#" AutoEventWireup="true"
+ 
+CodeBehind="Login.aspx.cs" Inherits="SessionDemo.Login" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+<title>Login - Session State</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<h2>Login Form</h2>
+<asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
+<asp:TextBox ID="txtUsername" runat="server">
+</asp:TextBox>
+<br /><br />
+<asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+<asp:TextBox ID="txtPassword" runat="server" TextMode="Password">
+</asp:TextBox>
+<br /><br />
+<asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+<br /><br />
+<asp:Label ID="lblMessage" runat="server">
+</asp:Label>
+</form>
+</body>
+</html> Login.aspx.cs using System;
+namespace SessionDemo
+{
+public partial class Login : System.Web.UI.Page
+{
+protected void btnLogin_Click(object sender, EventArgs e)
+ 
+{
+string username = txtUsername.Text; string password = txtPassword.Text;
+// Check login details
+if (username == "admin" && password == "1234")
+{
+// Store username in Session Session["Username"] = username;
+// Go to Welcome page Response.Redirect("Welcome.aspx");
+}
+else
+{
+lblMessage.Text = "Invalid Username or Password";
+}
+}
+}
+}
+Welcome.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Welcome.aspx.cs" Inherits="SessionDemo.Welcome" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+<title>Welcome</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<h2>Welcome Page</h2>
+<asp:Label ID="lblWelcome" runat="server">
+</asp:Label>
+<br /><br />
+<asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+</form>
+</body>
+</html>
+ 
+Welcome.aspx.cs using System; namespace SessionDemo
+{
+public partial class Welcome : System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+// Check whether Session exists if (Session["Username"] != null)
+{
+string username = Session["Username"].ToString();
+lblWelcome.Text = "Welcome, " + username;
+}
+else
+{
+Response.Redirect("Login.aspx");
+}
+}
+protected void btnLogout_Click(object sender, EventArgs e)
+{
+// Clear Session Session.Clear();
+// Go back to Login page Response.Redirect("Login.aspx");
+}
+}
+}
