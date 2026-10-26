@@ -1,0 +1,148 @@
+SQL Server Management Studio (SSMS), follow these simple steps. Step 1: Open SSMS
+Open SQL Server Management Studio. In Connect to Server:
+Server type: Database Engine
+Server name: Usually .\SQLEXPRESS or (localdb)\MSSQLLocalDB Authentication: Windows Authentication Click Connect.
+Step 2: Create a database In the left Object Explorer:
+Right-click Databases Select New Database... Enter:
+CollegeDB Click OK.
+You should now see:
+Databases
+└── CollegeDB Step 3: Create a table
+You can create the table using SQL. Click New Query.
+Select CollegeDB from the database dropdown. Paste:
+CREATE TABLE Students (
+StudentID INT IDENTITY(1,1) PRIMARY KEY, StudentName VARCHAR(100) NOT NULL, Course VARCHAR(50) NOT NULL,
+Age INT
+);
+Click Execute or press F5. Step 4: Check the table Expand:
+CollegeDB
+└── Tables
+└── dbo.Students
+If you don't see it immediately, right-click Tables → Refresh. Step 5: Insert some test records
+Run:
+INSERT INTO Students (StudentName, Course, Age) VALUES
+ 
+('Rahul', 'BSc IT', 20),
+('Priya', 'BSc CS', 21),
+('Amit', 'BCA', 19);
+Then check the records: SELECT * FROM Students;
+CREATE DATABASE CollegeDB; GO
+USE CollegeDB;
+GO
+CREATE TABLE Students (
+StudentID INT IDENTITY(1,1) PRIMARY KEY, StudentName VARCHAR(100) NOT NULL, Course VARCHAR(50) NOT NULL,
+Age INT
+);
+ASPX page — Student.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Student.aspx.cs" Inherits="StudentApp.Student" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+<title>Student Record Management</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<h2>Student Record Management</h2> Student Name:
+<asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+<br /><br />
+Course:
+<asp:TextBox ID="txtCourse" runat="server"></asp:TextBox>
+<br /><br />
+Age:
+<asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+<br /><br />
+<asp:Button ID="btnInsert"
+ 
+runat="server" Text="Insert Record"
+OnClick="btnInsert_Click" />
+<br /><br />
+<asp:Label ID="lblMessage" runat="server" ForeColor="Green">
+</asp:Label>
+<hr />
+<h3>Student Records</h3>
+<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="StudentID"
+OnRowDeleting="GridView1_RowDeleting">
+<Columns>
+<asp:BoundField DataField="StudentID"
+HeaderText="ID" />
+<asp:BoundField DataField="StudentName" HeaderText="Name" />
+<asp:BoundField DataField="Course" HeaderText="Course" />
+<asp:BoundField DataField="Age" HeaderText="Age" />
+<asp:CommandField ShowDeleteButton="True" HeaderText="Action" />
+</Columns>
+</asp:GridView>
+</form>
+</body>
+</html>
+ 
+Code-behind — Student.aspx.cs using System; using System.Data; using System.Data.SqlClient;
+namespace StudentApp
+{
+public partial class Student : System.Web.UI.Page
+{
+string connectionString =
+@"Data Source=.\SQLEXPRESS; Initial Catalog=CollegeDB; Integrated Security=True";
+
+
+
+
+
+protected void Page_Load(object sender, EventArgs e)
+{
+if (!IsPostBack)
+{
+LoadStudents();
+}
+}
+// INSERT RECORD
+protected void btnInsert_Click(object sender, EventArgs e)
+{
+string name = txtName.Text; string course = txtCourse.Text;
+int age = Convert.ToInt32(txtAge.Text);
+using (SqlConnection con =
+new SqlConnection(connectionString))
+{
+string query =
+"INSERT INTO Students " + "(StudentName, Course, Age) " + "VALUES (@Name, @Course, @Age)";
+SqlCommand cmd =
+new SqlCommand(query, con);
+cmd.Parameters.AddWithValue("@Name", name); cmd.Parameters.AddWithValue("@Course", course); cmd.Parameters.AddWithValue("@Age", age);
+con.Open();
+ 
+cmd.ExecuteNonQuery();
+}
+lblMessage.Text = "Record inserted successfully.";	txtName.Text = ""; txtCourse.Text = "";
+txtAge.Text = "";
+LoadStudents();
+}
+// DISPLAY RECORDS
+private void LoadStudents()
+{
+using (SqlConnection con =
+new SqlConnection(connectionString))
+{
+string query = "SELECT * FROM Students";
+SqlDataAdapter da =
+new SqlDataAdapter(query, con); DataTable dt = new DataTable(); da.Fill(dt);
+GridView1.DataSource = dt; GridView1.DataBind();
+}
+}
+// DELETE RECORD
+protected void GridView1_RowDeleting( object sender,
+System.Web.UI.WebControls.GridViewDeleteEventArgs e)
+{
+int studentID = Convert.ToInt32(
+GridView1.DataKeys[e.RowIndex].Value);
+using (SqlConnection con =
+new SqlConnection(connectionString))
+{
+string query =
+"DELETE FROM Students " + "WHERE StudentID = @ID";
+SqlCommand cmd =
+new SqlCommand(query, con); cmd.Parameters.AddWithValue("@ID", studentID);
+ 
+con.Open(); cmd.ExecuteNonQuery();
+}
+lblMessage.Text =	"Record deleted successfully.";
+LoadStudents();
+}}}
