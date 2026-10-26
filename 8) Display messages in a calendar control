@@ -22,3 +22,6 @@ protected void Calendar1_SelectionChanged(object sender, EventArgs e)
 Label1.Text = "You selected: " + Calendar1.SelectedDate.ToLongDateString();
 }
 }
+
+
+Label1.Text = "You selected: " + Calendar1.SelectedDate.ToLongDateString();
