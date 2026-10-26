@@ -1,0 +1,31 @@
+using System;
+namespace Factorial
+{
+class Program
+{
+static void Main(string[] args)
+{	int number, fact = 1;
+Console.WriteLine(“Enter a non-negative integer:”);
+// Input validation
+if (int.TryParse(Console.ReadLine(), out number) && number >= 0)
+{
+for (int i = 1; i <= number; i++)
+{
+fact *= i;
+}
+Console.WriteLine($”\nFactorial of {number} is: {fact}”);
+ 
+
+else
+{
+ 
+}
+
+
+Console.WriteLine(“Invalid input! Please enter a non-negative integer.”);
+}
+ 
+Console.ReadLine();
+}
+}
+}
