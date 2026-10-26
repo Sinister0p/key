@@ -31,3 +31,28 @@ if (num % i == 0) return false;
 return true;
 }
 }
+
+Defult5.aspx.cs
+
+
+using System.Collections.Generic; using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace cookies
+{
+}
+public partial class WebForm1: System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+if (Request.Cookies["BackgroundColor"] != null)
+ColorSelector.SelectedValue = Request.Cookies["BackgroundColor"].Value; BodyTag.Style["background-color"] = ColorSelector.SelectedValue;
+protected void ColorSelector_IndexChanged(object sender, EventArgs e)
+{
+BodyTag.Style["background-color"] = ColorSelector.SelectedValue; HttpCookie cookie = new HttpCookie("BackgroundColor"); cookie.Value = ColorSelector.SelectedValue; cookie.Expires=DateTime.Now.AddMilliseconds(20);
+Response.SetCookie(cookie);
+}
+}
+}
