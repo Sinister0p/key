@@ -1,0 +1,40 @@
+Default.aspx
+<%@ Page Language="C#" AutoEventWireup="true"
+ 
+CodeBehind="Default.aspx.cs" Inherits="ApplicationStateDemo.Default" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+<title>Application State</title>
+</head>
+<body>
+<form id="form1" runat="server">
+<h2>Application State - Visitor Counter</h2>
+<asp:Button ID="btnVisit" runat="server" Text="Count Visitor" OnClick="btnVisit_Click" />
+<br /><br />
+<asp:Label ID="lblCount" runat="server">
+</asp:Label>
+</form>
+</body>
+</html>
+Default.aspx.cs using System;
+namespace ApplicationStateDemo
+{
+public partial class Default : System.Web.UI.Page
+{
+protected void btnVisit_Click(object sender, EventArgs e)
+{
+// Check whether Application variable exists if (Application["VisitorCount"] == null)
+{
+Application["VisitorCount"] = 0;
+}
+// Get current count
+int count = (int)Application["VisitorCount"];
+// Increase count count++;
+// Store updated count Application["VisitorCount"] = count;
+// Display count
+lblCount.Text = "Total Visitors: " + count;
+ 
+}
+}
+}
